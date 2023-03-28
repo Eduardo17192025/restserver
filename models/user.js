@@ -36,7 +36,8 @@ const UsuarioSchema =Schema({
 });
 //debe ser funcion normal
 UsuarioSchema.methods.toJSON =  function(){ // es para que no se imprima ni password ni version
-    const {__v,password,...usuario} = this.toObject();
+    const {__v,password,_id,...usuario} = this.toObject();
+    usuario.uid = _id;
     return usuario;
 }
 module.exports = model('Usuario',UsuarioSchema);

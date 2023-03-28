@@ -6,6 +6,7 @@ class Server {
         this.app = express();
         this.port = process.env.PORT;
         this.usuariosPath= '/api/usuarios'; 
+        this.authPath= '/api/auth'; 
         //conectar a bd
         this.connectDatabase();
         //Middlewares funcion que siempre se ejecuta
@@ -25,6 +26,7 @@ class Server {
         this.app.use(express.static('public'));
     }
     routes(){
+        this.app.use(this.authPath,require('../routes/auth'));
         this.app.use(this.usuariosPath,require('../routes/user'));
     }
     listen(){

@@ -1,7 +1,6 @@
 const { response } = require("express");
 const Usuario = require("../models/user");
 const bcryptjs = require("bcryptjs");
-const { emailExiste } = require("../helpers/db_validators");
 const usuariosGet = async (req, res = response) => {
   const { desde = 0, limit = 5} = req.query;
   const query = { estado: true };
@@ -41,11 +40,14 @@ const usuariosPost = async (req, res = response) => {
 };
 const usuariosDelete = async (req, res = response) => {
   const { id } = req.params;
+  const { uid } = req.uid;
   //borrado fisicamente - no recomendado
   // const usuario  = await Usuario.findByIdAndDelete(id);
   const usuario = await Usuario.findByIdAndUpdate(id,{estado: false});
+  const usuarioAutenticado = req.usuario;
   res.json({
     usuario,
+    usuarioAutenticado
   });
 };
 
