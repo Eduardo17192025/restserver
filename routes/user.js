@@ -13,7 +13,7 @@ const {
 } = require("../helpers/db_validators");
 
 const {validarCampos,validarJWT,esAdminRole,tieneRole} = require("../middlewares");
-
+  
 const router = Router();
 router.get("/", usuariosGet);
 router.put(
